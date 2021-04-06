@@ -63,4 +63,9 @@ class Shell
         $this->useTTY = true;
         return $this;
     }
+
+    public function getRootPath()
+    {
+        return $this->rootPath;
+    }
 }
