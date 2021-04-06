@@ -18,16 +18,6 @@ class VerifyDependencies
             'label' => 'The Laravel Installer',
             'instructions_url' => 'https://laravel.com/docs/installation#installing-laravel',
         ],
-        [
-            'command' => 'valet',
-            'label' => 'Laravel valet',
-            'instructions_url' => 'https://laravel.com/docs/valet',
-        ],
-        [
-            'command' => 'git',
-            'label' => 'Git version control',
-            'instructions_url' => 'https://git-scm.com',
-        ],
     ];
 
     public function __construct(ExecutableFinder $finder, ConsoleWriter $consoleWriter)
