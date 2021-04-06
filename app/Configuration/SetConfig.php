@@ -80,6 +80,7 @@ class SetConfig
 
     private function getTld(): string
     {
+        return '.docker';
         $valetConfig = config('home_dir') . '/.config/valet/config.json';
         $legacyValetConfig = config('home_dir') . '/.valet/config.json';
 
