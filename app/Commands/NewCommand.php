@@ -101,15 +101,15 @@ class NewCommand extends LamboCommand
             app(RunLaravelInstaller::class)();
             app(CustomizeDotEnv::class)();
             app(GenerateAppKey::class)();
-            app(CreateDatabase::class)();
-            app(ConfigureFrontendFramework::class)();
-            app(MigrateDatabase::class)();
-            app(InitializeGitRepo::class)();
+//            app(CreateDatabase::class)();
+//            app(ConfigureFrontendFramework::class)();
+//            app(MigrateDatabase::class)();
+//            app(InitializeGitRepo::class)();
             app(RunAfterScript::class)();
-            app(ValetLink::class)();
-            app(ValetSecure::class)();
-            app(OpenInEditor::class)();
-            app(OpenInBrowser::class)();
+//            app(ValetLink::class)();
+//            app(ValetSecure::class)();
+//            app(OpenInEditor::class)();
+//            app(OpenInBrowser::class)();
         } catch (LamboException $e) {
             $this->consoleWriter->exception($e->getMessage());
             exit;
