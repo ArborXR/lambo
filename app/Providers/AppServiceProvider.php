@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         config()->set([
-            'home_dir' => $path,
+            'home_dir' => '/var/www/html',
         ]);
     }
 
