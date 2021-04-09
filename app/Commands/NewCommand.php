@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use Illuminate\Support\Str;
 use App\Actions\ConfigureFrontendFramework;
 use App\Actions\CreateDatabase;
 use App\Actions\CustomizeDotEnv;
@@ -180,7 +181,7 @@ class NewCommand extends LamboCommand
             LamboConfiguration::BROWSER => null,
             LamboConfiguration::DATABASE_HOST => '127.0.0.1',
             LamboConfiguration::DATABASE_PORT => 3306,
-            LamboConfiguration::DATABASE_NAME => $this->argument('projectName'),
+            LamboConfiguration::DATABASE_NAME => substr($this->argument('projectName'), 0, strrpos($this->argument('projectName'), '-api')),
             LamboConfiguration::DATABASE_USERNAME => 'root',
             LamboConfiguration::DATABASE_PASSWORD => '',
             LamboConfiguration::CREATE_DATABASE => false,
@@ -195,6 +196,7 @@ class NewCommand extends LamboCommand
             LamboConfiguration::TEAMS => false,
             LamboConfiguration::PROJECT_NAME => null,
             LamboConfiguration::TLD => null,
+            'APP_NAMESPACE' => Str::studly(substr($this->argument('projectName'), 0, strrpos($this->argument('projectName'), '-api')))
         ]);
 
         if ($this->consoleWriter->isDebug()) {
