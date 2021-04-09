@@ -30,10 +30,11 @@ class RunAfterScript
 
         $export = [];
         foreach (config('lambo.store') as $configVariable => $configData) {
-            if (in_array($configVariable, ['project_path','APP_NAMESPACE', 'database_name', 'project_name', 'project_url'])) {
+            if (in_array($configVariable, ['project_path', 'APP_NAMESPACE', 'database_name', 'project_name', 'project_url'])) {
                 $export[] = 'export ' . strtoupper($configVariable) . '=' . $configData;
             }
         }
+        $export[] = 'export DOCKER_CONTAINER_PREFIX=' . substr(config('lambo.store.project_name'), 0, strrpos(config('lambo.store.project_name'), '-'));
         $exports = implode(' && ', $export);
 
         $process = $this->shell->execInProject($exports . ' && sh ' . $afterScriptPath);
