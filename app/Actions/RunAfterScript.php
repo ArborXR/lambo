@@ -30,7 +30,9 @@ class RunAfterScript
 
         $export = [];
         foreach (config('lambo.store') as $configVariable => $configData) {
-            $export[] = 'export ' . strtoupper($configVariable);
+            if (in_array($configVariable, ['APP_NAMESPACE', 'database_name'])) {
+                $export[] = 'export ' . strtoupper($configVariable) . '=' . $configData;
+            }
         }
         $exports = implode(' && ', $export);
 
