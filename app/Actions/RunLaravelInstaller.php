@@ -22,7 +22,7 @@ class RunLaravelInstaller
     {
         $this->consoleWriter->logStep('Running the Laravel installer');
 
-        $process = $this->shell->execInRoot('/var/www/html/vendor/bin/laravel new ' . config('lambo.store.project_name'));
+        $process = $this->shell->execInRoot('/var/www/html/vendor/bin/laravel new ' . config('lambo.store.project_name') .' --ansi');
         if (!$process->isSuccessful()) {
             dump($process->getErrorOutput());
         }
