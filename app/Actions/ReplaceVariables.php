@@ -22,6 +22,7 @@ class ReplaceVariables
     public function __invoke()
     {
         $homePath = config('home_dir') . '/.lambo';
+        $projectPath = config('lambo.store.project_path');
         $appNamespace = config('lambo.store.APP_NAMESPACE');
         $dbName = config('lambo.store.DATABASE_NAME');
 
@@ -29,13 +30,13 @@ class ReplaceVariables
 
         $this->consoleWriter->logStep('Copying Configuration Files');
 
-        $process = $this->shell->execInProject('cp '.$homePath.'/bootstrap/*.php ./bootstrap/');
+        $process = $this->shell->execInProject('cp '.$homePath.'/bootstrap/*.php '.$projectPath.'/bootstrap/');
         if (!$process->isSuccessful()) {
             dump($process->getErrorOutput());
         }
         $this->abortIf(! $process->isSuccessful(), 'Replace variables did not complete successfully', $process);
 
-        $process = $this->shell->execInProject('cp '.$homePath.'/config/*.php ./config/');
+        $process = $this->shell->execInProject('cp '.$homePath.'/config/*.php '.$projectPath.'/config/');
         if (!$process->isSuccessful()) {
             dump($process->getErrorOutput());
         }
