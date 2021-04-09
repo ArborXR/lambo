@@ -96,7 +96,6 @@ class NewCommand extends LamboCommand
             app(CustomizeDotEnv::class)();
             app(GenerateAppKey::class)();
             app(RunAfterScript::class)();
-            app(ReplaceVariables::class)();
         } catch (LamboException $e) {
             $this->consoleWriter->exception($e->getMessage());
             exit;

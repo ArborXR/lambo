@@ -2,8 +2,8 @@
 
 namespace App\Actions;
 
-use App\ConsoleWriter;
 use App\Shell;
+use App\ConsoleWriter;
 use Illuminate\Support\Facades\File;
 
 class RunAfterScript
@@ -22,17 +22,23 @@ class RunAfterScript
     public function __invoke()
     {
         $afterScriptPath = config('home_dir') . '/.lambo/after';
-        if (! File::isFile($afterScriptPath)) {
+        if (!File::isFile($afterScriptPath)) {
             return;
         }
 
         $this->consoleWriter->logStep('Running after script');
 
-        $process = $this->shell->execInProject('sh ' . $afterScriptPath);
+        $export = [];
+        foreach (config('lambo.store') as $configVariable => $configData) {
+            $export[] = 'export ' . strtoupper($configVariable);
+        }
+        $exports = implode(' && ', $export);
+
+        $process = $this->shell->execInProject($exports . ' && sh ' . $afterScriptPath);
         if (!$process->isSuccessful()) {
             dump($process->getErrorOutput());
         }
-        $this->abortIf(! $process->isSuccessful(), 'After file did not complete successfully', $process);
+        $this->abortIf(!$process->isSuccessful(), 'After file did not complete successfully', $process);
 
         $this->consoleWriter->success('After script has completed.');
     }
