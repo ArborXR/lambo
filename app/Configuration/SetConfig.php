@@ -80,26 +80,7 @@ class SetConfig
 
     private function getTld(): string
     {
-        return '.docker';
-        $valetConfig = config('home_dir') . '/.config/valet/config.json';
-        $legacyValetConfig = config('home_dir') . '/.valet/config.json';
-
-        if (File::isFile($valetConfig)) {
-            return json_decode(File::get($valetConfig))->tld;
-        }
-
-        if (File::isFile($legacyValetConfig)) {
-            return json_decode(File::get($legacyValetConfig))->domain;
-        }
-
-        throw new LamboException(
-            implode(PHP_EOL, [
-                'Unable to find valet domain (tld) configuration.',
-                'No Valet configuration located at either of the following locations:',
-                  "- {$valetConfig}",
-                  "- {$legacyValetConfig}",
-            ])
-        );
+        return 'arborxr.docker';
     }
 
     private function getRootPath(string $key, $default)
