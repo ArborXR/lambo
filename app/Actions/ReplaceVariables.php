@@ -29,6 +29,12 @@ class ReplaceVariables
         $this->consoleWriter->logStep('Running replace variables script');
 
         foreach ($paths as $path) {
+            $process = $this->shell->execInProject('find ./'.$path.'/ -type f -name "*.php" -print0 | xargs -0 sed -i "s/App\/'.$appNamespace.'\/g"');
+            if (!$process->isSuccessful()) {
+                dump($process->getErrorOutput());
+            }
+            $this->abortIf(! $process->isSuccessful(), 'Replace variables did not complete successfully', $process);
+
             $process = $this->shell->execInProject('find ./'.$path.'/ -type f -name "*.php" -print0 | xargs -0 sed -i "s/{{ APP_NAMESPACE }}/'.$appNamespace.'/g"');
             if (!$process->isSuccessful()) {
                 dump($process->getErrorOutput());
