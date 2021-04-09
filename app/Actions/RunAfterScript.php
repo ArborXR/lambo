@@ -35,6 +35,7 @@ class RunAfterScript
             }
         }
         $export[] = 'export DOCKER_CONTAINER_PREFIX=' . substr(config('lambo.store.project_name'), 0, strrpos(config('lambo.store.project_name'), '-'));
+        $export[] = 'export APP_NAME_UPPERCASE=' . config('lambo.store.APP_NAMESPACE');
         $exports = implode(' && ', $export);
 
         $process = $this->shell->execInProject($exports . ' && sh ' . $afterScriptPath);
