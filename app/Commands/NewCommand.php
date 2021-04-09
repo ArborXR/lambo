@@ -8,7 +8,9 @@ use App\LamboException;
 use Illuminate\Support\Str;
 use App\Actions\EditConfigFile;
 use App\Actions\RunAfterScript;
+use App\Actions\GenerateAppKey;
 use App\Configuration\SetConfig;
+use App\Actions\CustomizeDotEnv;
 use App\Actions\DisplayHelpScreen;
 use App\Actions\VerifyDependencies;
 use App\Actions\DisplayLamboWelcome;
@@ -90,6 +92,8 @@ class NewCommand extends LamboCommand
             app(VerifyPathAvailable::class)();
             app(VerifyDependencies::class)();
             app(RunLaravelInstaller::class)();
+            app(CustomizeDotEnv::class)();
+            app(GenerateAppKey::class)();
             app(RunAfterScript::class)();
         } catch (LamboException $e) {
             $this->consoleWriter->exception($e->getMessage());
