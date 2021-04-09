@@ -18,6 +18,7 @@ class Shell
         $this->rootPath = $config->get('lambo.store.root_path');
         $this->projectPath = $config->get('lambo.store.project_path');
         $this->consoleWriter = $consoleWriter;
+        $this->withTTY();
     }
 
     public function execInRoot($command)

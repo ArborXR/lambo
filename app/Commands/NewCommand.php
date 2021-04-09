@@ -2,34 +2,24 @@
 
 namespace App\Commands;
 
-use Illuminate\Support\Str;
-use App\Actions\ConfigureFrontendFramework;
-use App\Actions\CreateDatabase;
-use App\Actions\CustomizeDotEnv;
-use App\Actions\DisplayHelpScreen;
-use App\Actions\DisplayLamboWelcome;
-use App\Actions\EditConfigFile;
-use App\Actions\GenerateAppKey;
-use App\Actions\InitializeGitRepo;
-use App\Actions\MigrateDatabase;
-use App\Actions\OpenInBrowser;
-use App\Actions\OpenInEditor;
-use App\Actions\RunAfterScript;
-use App\Actions\RunLaravelInstaller;
-use App\Actions\UpgradeSavedConfiguration;
-use App\Actions\ValetLink;
-use App\Actions\ValetSecure;
-use App\Actions\ValidateConfiguration;
-use App\Actions\VerifyDependencies;
-use App\Actions\VerifyPathAvailable;
-use App\Configuration\CommandLineConfiguration;
-use App\Configuration\LamboConfiguration;
-use App\Configuration\SavedConfiguration;
-use App\Configuration\SetConfig;
-use App\Configuration\ShellConfiguration;
+use App\Options;
 use App\ConsoleWriter;
 use App\LamboException;
-use App\Options;
+use Illuminate\Support\Str;
+use App\Actions\EditConfigFile;
+use App\Actions\RunAfterScript;
+use App\Configuration\SetConfig;
+use App\Actions\DisplayHelpScreen;
+use App\Actions\VerifyDependencies;
+use App\Actions\DisplayLamboWelcome;
+use App\Actions\RunLaravelInstaller;
+use App\Actions\VerifyPathAvailable;
+use App\Actions\ValidateConfiguration;
+use App\Configuration\LamboConfiguration;
+use App\Configuration\SavedConfiguration;
+use App\Configuration\ShellConfiguration;
+use App\Actions\UpgradeSavedConfiguration;
+use App\Configuration\CommandLineConfiguration;
 
 class NewCommand extends LamboCommand
 {
@@ -75,7 +65,7 @@ class NewCommand extends LamboCommand
     {
         app(DisplayLamboWelcome::class)();
 
-        if (! $this->argument('projectName')) {
+        if (!$this->argument('projectName')) {
             app(DisplayHelpScreen::class)();
             exit;
         }
@@ -196,7 +186,7 @@ class NewCommand extends LamboCommand
             LamboConfiguration::TEAMS => false,
             LamboConfiguration::PROJECT_NAME => null,
             LamboConfiguration::TLD => null,
-            'APP_NAMESPACE' => Str::studly(substr($this->argument('projectName'), 0, strrpos($this->argument('projectName'), '-api')))
+            'APP_NAMESPACE' => Str::studly(substr($this->argument('projectName'), 0, strrpos($this->argument('projectName'), '-api'))),
         ]);
 
         if ($this->consoleWriter->isDebug()) {

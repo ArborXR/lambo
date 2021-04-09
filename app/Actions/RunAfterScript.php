@@ -29,6 +29,9 @@ class RunAfterScript
         $this->consoleWriter->logStep('Running after script');
 
         $process = $this->shell->execInProject('sh ' . $afterScriptPath);
+        if (!$process->isSuccessful()) {
+            dump($process->getErrorOutput());
+        }
         $this->abortIf(! $process->isSuccessful(), 'After file did not complete successfully', $process);
 
         $this->consoleWriter->success('After script has completed.');
